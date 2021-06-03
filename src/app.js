@@ -10,8 +10,6 @@ app.set('view engine', 'pug')
 
 const userRouter = require('./routers/user')
 const mainRouter = require('./routers/main')
-const { verifyJWT } = require('./jwt')
-const { getUsersCollection } = require('./mongo')
 const setupPassportFBAuth = require('./passport-auth-fb')
 
 app.use(cookieParser())
@@ -19,21 +17,7 @@ app.use(async (req, res, next) => {
   /* eslint-disable camelcase */
   const { access_token } = req.cookies
   if (access_token) {
-    try {
-      const userId = await verifyJWT(access_token)
-      if (userId) {
-        const users = await getUsersCollection()
-        const user = await users.findOne({
-          id: userId,
-        })
-        if (user) {
-          // @ts-ignore
-          req.userId = userId
-        }
-      }
-    } catch (e) {
-      console.log('Ignoring invalid token.')
-    }
+    // TODO: implement here
   }
   next()
 })

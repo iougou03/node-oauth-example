@@ -16,8 +16,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-  res.clearCookie('access_token')
-  res.redirect('/')
+  // TODO: implement
 })
 
 module.exports = router
